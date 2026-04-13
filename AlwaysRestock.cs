@@ -41,19 +41,14 @@ namespace AlwaysRestock
         public static class AddDelay
         {
             private static void Postfix(CrewManager __instance)
-            {
-                MelonLogger.Msg("Loader killed");
+            {                
                 FieldInfo field1 = typeof(CrewManager).GetField("_loadoutManager", BindingFlags.Instance | BindingFlags.NonPublic);
-                LoadoutManager lm = field1.GetValue(__instance) as LoadoutManager;
-                MelonLogger.Msg("LoadoutManager found: " + lm);
-                GHPC.Weapons.AmmoRack rack = lm.RackLoadouts[0].Rack;
-                MelonLogger.Msg("Rack found: " + rack);
+                LoadoutManager lm = field1.GetValue(__instance) as LoadoutManager;                
+                GHPC.Weapons.AmmoRack rack = lm.RackLoadouts[0].Rack;                
                 FieldInfo field2 = typeof(GHPC.Weapons.AmmoRack).GetField("_storageDelaySeconds", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
                 float temp = (float) field2.GetValue(rack);
                 temp += extraDelayCorrected;
-                field2.SetValue(rack, temp);
-                //._storageDelaySeconds += extraDelayCorrected
-                MelonLogger.Msg("loader killed, restock delay added");
+                field2.SetValue(rack, temp);                
             }
         }
     }
